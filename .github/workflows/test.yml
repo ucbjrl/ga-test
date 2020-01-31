@@ -39,6 +39,7 @@ jobs:
       - name: list
         id: list
         run: |
+          echo ls -la . repo
           ls -la . repo
       - name: test
         id: test
