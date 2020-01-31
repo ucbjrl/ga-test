@@ -2,12 +2,6 @@ const core = require('@actions/core');
 const { context, GitHub } = require("@actions/github");
 
 async function run() {
-  const trigger = core.getInput("trigger");
-  if (!trigger) {
-      core.setFailed("No `trigger` input given, aborting.");
-      return;
-  }
-
   if (
       context.eventName === "issue_comment" &&
       !context.payload.issue.pull_request
