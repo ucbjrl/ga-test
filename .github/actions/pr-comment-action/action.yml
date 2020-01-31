@@ -1,0 +1,8 @@
+name: 'Get PR comments'
+description: 'Retrieve comments from the associated Pull Request'
+outputs:
+  comment:
+    description: 'The text of comments associated with the Pull Request'
+runs:
+  using: 'node12'
+  main: 'index.js'
