@@ -43,7 +43,7 @@ jobs:
           ls -la . repo
       - name: test
         id: test
-        uses: ./.github/actions/pr-comment-action
+        uses: repo/.github/actions/pr-comment-action
       - name: results
         id: results
         run: |
