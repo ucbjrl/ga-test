@@ -4,7 +4,7 @@ const context = require("@actions/github");
 async function run() {
   const name = context.eventName;
 
-  const body = context.payload.head_commit.message;
+  const body = "(no body)"; //context.payload.head_commit.message;
 
   core.setOutput("comment", name + "\n" + body);
 
