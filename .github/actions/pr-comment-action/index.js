@@ -14,9 +14,7 @@ async function run() {
   const { owner, repo } = context.repo;
 
   const body =
-      context.eventName !== "pull_request"
-          ? context.payload.comment.body
-          : context.payload.pull_request.body;
+      context.event.head_commit.message;
 
   core.setOutput("comment", body);
 
