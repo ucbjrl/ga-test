@@ -1,8 +1,9 @@
 const core = require('@actions/core');
-const context = require("@actions/github");
+//const context = require("@actions/github");
+import * as github from '@actions/github'
 
 async function run() {
-  const name = context.eventName;
+  const name = github.context.eventName;
 
   const body = "(no body)"; //context.payload.head_commit.message;
 
