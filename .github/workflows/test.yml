@@ -51,4 +51,4 @@ jobs:
       - name: results
         id: results
         run: |
-          echo ${{ steps.test.outputs.comment }}
+          echo "${{ steps.test.outputs.comment }}"
