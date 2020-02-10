@@ -5,9 +5,9 @@ const context = github.context;
 async function run() {
   const name = github.context.eventName;
 
-  const body = /* "(no body)"; */ github.context.payload /*.head_commit.message */;
+  const body = JSON.stringify(github.context.payload, undefined, 2) /*.head_commit.message */;
 
-  core.setOutput("comment", name + "\n" + body.toString());
+  core.setOutput("comment", name + "\n" + body);
 
 }
 
