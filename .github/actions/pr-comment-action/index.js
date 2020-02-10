@@ -5,7 +5,18 @@ const context = github.context;
 async function run() {
   const name = github.context.eventName;
 
-  const body = JSON.stringify(github.context.payload, undefined, 2) /*.head_commit.message */;
+  let body;
+  switch(name) {
+    case 'push':
+      body = github.context.payload.push.head_commit.message;
+      break;
+    case 'pull_request':
+      body = github.context.payload.pull_request.body;
+      break;
+    default:
+      body = '';
+      break;
+  }
 
   core.setOutput("comment", name + "\n" + body);
 
