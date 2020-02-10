@@ -8,7 +8,8 @@ async function run() {
   let body;
   switch(name) {
     case 'push':
-      body = github.context.payload.push.head_commit.message;
+      const payload = github.context.payload;
+      body = payload.body
       break;
     case 'pull_request':
       body = github.context.payload.pull_request.body;
