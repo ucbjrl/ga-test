@@ -51,4 +51,6 @@ jobs:
       - name: results
         id: results
         run: |
-          echo "${{ steps.test.outputs.comment }}"
+          echo comment "${{ steps.test.outputs.comment }}"
+          echo name "${{ steps.test.outputs.name }}"
+          echo keys "${{ steps.test.outputs.keys }}"

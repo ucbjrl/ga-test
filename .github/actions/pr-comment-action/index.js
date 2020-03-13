@@ -5,21 +5,26 @@ const context = github.context;
 async function run() {
   const name = github.context.eventName;
 
-  let body;
+  let body, keys;
   switch(name) {
     case 'push':
       const payload = github.context.payload;
       body = payload
+      keys = Object.keys(payload)
       break;
     case 'pull_request':
       body = github.context.payload.pull_request.body;
+      keys = Object.keys(github.context.payload.pull_request)
       break;
     default:
       body = '';
+      keys = '';
       break;
   }
 
-  core.setOutput("comment", name + "\n" + body);
+  core.setOutput("comment", body);
+  core.setOutput("name", name);
+  core.setOutput("keys", keys);
 
 }
 
