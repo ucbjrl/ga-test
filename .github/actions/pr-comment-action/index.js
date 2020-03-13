@@ -22,8 +22,8 @@ async function run() {
       break;
   }
 
-  core.setOutput("comment", JSON.stringify(body));
-  core.setOutput("name", JSON.stringify(name));
+  core.setOutput("comment", "" + body);
+  core.setOutput("name", "" + name);
   core.setOutput("keys", JSON.stringify(keys));
 
 }
