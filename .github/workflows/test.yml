@@ -41,6 +41,11 @@ jobs:
         run: |
           echo ls -la . repo
           ls -la . repo
+      - name: env
+        id: env
+        run: |
+          echo "cat $GITHUB_EVENT_PATH"
+          cat $GITHUB_EVENT_PATH
       - name: test
         id: test
         uses: ./repo/.github/actions/pr-comment-action
