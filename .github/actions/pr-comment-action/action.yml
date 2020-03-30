@@ -7,6 +7,6 @@ outputs:
     description: 'The name of the triggering event (pull_request)'
   keys:
     description: 'Array of object properties for the triggering event'
-  runs:
-    using: 'node12'
-    main: 'index.js'
+runs:
+  using: 'node12'
+  main: 'index.js'
