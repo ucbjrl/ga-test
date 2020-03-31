@@ -40,7 +40,7 @@ jobs:
         id: list
         run: |
           echo ls -la . repo
-          ls -la . repo
+          ls -la . repo repo/.github/scripts
       - name: env
         id: env
         run: |
@@ -49,7 +49,7 @@ jobs:
       - name: gawk
         id: gawk
         run: |
-          gawk -e '/^[[:space:]]*"body": / {gsub(/\\r/, ""); gsub(/\\n/, "\n"); i=split($0, a, /### Build Dependencies/); if ( i != 2 ) { print "no build dependencies"; exit 0 } $0=a[2]; i=split($0,a,/\nBuild with: /);  delete a[1]; for (i in a) { gsub(/[^[:alnum:]_-]/, "", a[i]); print a[i] } }' $GITHUB_EVENT_PATH
+          gawk -f repo/.github/scripts/buildDependencies.gawk $GITHUB_EVENT_PATH
       - name: test
         id: test
         uses: ./repo/.github/actions/pr-comment-action
