@@ -50,6 +50,7 @@ jobs:
         id: gawk
         run: |
           gawk -f repo/.github/scripts/buildDependencies.gawk $GITHUB_EVENT_PATH > deps
+          ls -l deps
       - name: clone
         id: clone
         run: |
