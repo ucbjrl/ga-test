@@ -21,14 +21,14 @@
   for (i in a) {
     n=split(a[i], d, /\s+/)
     switch (d[1]) {
-      case /version/ :
+      case /maven-version/ :
         if (n != 3) {
           err[errLines++]="missing version parameter: " a[i]
         }
         break
 
       case /git-clone/ :
-        if (n != 3) {
+        if (n != 4) {
           err[errLines++]="missing git-clone parameter: " a[i]
         }
         break

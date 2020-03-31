@@ -49,7 +49,15 @@ jobs:
       - name: gawk
         id: gawk
         run: |
-          gawk -f repo/.github/scripts/buildDependencies.gawk $GITHUB_EVENT_PATH
+          gawk -f repo/.github/scripts/buildDependencies.gawk $GITHUB_EVENT_PATH > deps
+      - name: clone
+        id: clone
+        run: |
+          echo "sbt $(gawk -f repo/.github/scripts/generateGitClones.gawk deps)"
+      - name: version
+        id: version
+        run: |
+          gawk -f repo/.github/scripts/generateVersionOverrides.gawk deps
       - name: test
         id: test
         uses: ./repo/.github/actions/pr-comment-action
