@@ -58,7 +58,7 @@ jobs:
       - name: version
         id: version
         run: |
-        echo "sbt $(gawk -f repo/.github/scripts/generateVersionOverrides.gawk deps)"
+          echo "sbt $(gawk -f repo/.github/scripts/generateVersionOverrides.gawk deps)"
       - name: test
         id: test
         uses: ./repo/.github/actions/pr-comment-action
