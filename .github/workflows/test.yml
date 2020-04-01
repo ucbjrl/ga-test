@@ -51,24 +51,14 @@ jobs:
         run: |
           gawk -f repo/.github/scripts/buildDependencies.gawk $GITHUB_EVENT_PATH > deps
           ls -l deps
-      - name: clone
-        id: clone
+          cat deps
+      - name: clone-deps
+        id: clone-deps
         run: |
-          gawk -f repo/.github/scripts/generateGitClones.gawk deps | bash
-      - name: version
-        id: version
+          gawk -f repo/.github/scripts/generateGitClones.gawk deps
+#          gawk -f repo/.github/scripts/generateGitClones.gawk deps | bash
+      - name: version-deps
+        id: version-deps
         run: |
-          echo "sbt $(gawk -f repo/.github/scripts/generateVersionOverrides.gawk deps)"
-      - name: test
-        id: test
-        uses: ./repo/.github/actions/pr-comment-action
-      - name: echo
-        id: echo
-        run: |
-          echo "${{ github.event.head_commit.message }}"
-      - name: results
-        id: results
-        run: |
-          echo comment "${{ steps.test.outputs.comment }}"
-          echo name "${{ steps.test.outputs.name }}"
-          echo keys "${{ steps.test.outputs.keys }}"
+          versionDeps=$(gawk -f repo/.github/scripts/generateVersionOverrides.gawk deps)
+          echo "sbt $versionDeps"
