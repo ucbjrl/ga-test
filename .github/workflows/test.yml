@@ -49,7 +49,7 @@ jobs:
       - name: gawk
         id: gawk
         run: |
-          gawk -f repo/.github/scripts/ExtractDependenciesFromPullRequest.gawk $GITHUB_EVENT_PATH > deps
+          gawk -f repo/.github/scripts/ExtractBuildDependenciesFromPullRequest.gawk $GITHUB_EVENT_PATH > deps
           ls -l deps
           cat deps
       - name: clone-deps
