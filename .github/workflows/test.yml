@@ -55,8 +55,9 @@ jobs:
       - name: clone-deps
         id: clone-deps
         run: |
-          gawk -f repo/.github/scripts/generateGitClones.gawk deps
-#          gawk -f repo/.github/scripts/generateGitClones.gawk deps | bash
+          gawk -f repo/.github/scripts/generateGitClones.gawk deps > clones
+          cat clones
+#          bash clones
       - name: version-deps
         id: version-deps
         run: |
