@@ -54,11 +54,11 @@ jobs:
       - name: clone
         id: clone
         run: |
-          echo "sbt $(gawk -f repo/.github/scripts/generateGitClones.gawk deps)"
+          gawk -f repo/.github/scripts/generateGitClones.gawk deps | bash
       - name: version
         id: version
         run: |
-          gawk -f repo/.github/scripts/generateVersionOverrides.gawk deps
+        echo "sbt $(gawk -f repo/.github/scripts/generateVersionOverrides.gawk deps)"
       - name: test
         id: test
         uses: ./repo/.github/actions/pr-comment-action
