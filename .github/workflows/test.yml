@@ -77,3 +77,7 @@ jobs:
         run: |
           versionDeps=$(gawk -f repo/.github/scripts/generateVersionOverrides.gawk deps)
           echo "sbt $versionDeps"
+      - name: result
+        id: result
+        run: |
+          ls -la ~ ~/.sbt ~/.cache
