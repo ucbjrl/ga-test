@@ -87,4 +87,4 @@ jobs:
       - name: result
         id: result
         run: |
-          ls -la ~ ~/.sbt ~/.cache /home/github /home/github/.??*
+          ls -la ~ ~/.sbt ~/.cache /home/github /home/github/.??* $CONTAINER_HOME
