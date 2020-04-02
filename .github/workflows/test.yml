@@ -14,7 +14,6 @@ jobs:
       FIRRTL_REF: master
       FIRRTL_INTERPRETER_REF: master
       TREADLE_REF: master
-      CONTAINER_HOME: /home/github
 
     steps:
       - name: id
@@ -25,13 +24,8 @@ jobs:
           whoami
           git --version
           pwd
-          echo "Link $CONTAINER_HOME caches to $HOME"
-          echo mkdir -p $HOME/.cache $HOME/.ivy2 $HOME/.sbt
-          mkdir -p $HOME/.cache $HOME/.ivy2 $HOME/.sbt
-          echo ln -s $HOME/.cache $HOME/.ivy2 $HOME/.sbt $CONTAINER_HOME
-          ln -s $HOME/.cache $HOME/.ivy2 $HOME/.sbt $CONTAINER_HOME
-          echo ls -la $HOME . $CONTAINER_HOME
-          ls -la $HOME . $CONTAINER_HOME
+          echo ls -la $HOME .
+          ls -la $HOME .
       - name: checkout
         uses: actions/checkout@v2
         with:
@@ -52,7 +46,7 @@ jobs:
           cache-name: cache-coursier
         with:
           path: ~/.cache/
-          key: build-${{ env.cache-name }}-v1-${{ hashFiles('repo/build.sbt') }}-${{hashFiles('repo/project/*')}}
+          key: build-${{ env.cache-name }}-v1-${{ hashFiles('repo/build.sbt') }}-${{ hashFiles('repo/project/*') }}
           restore-keys: |
             -build-${{ env.cache-name }}-v1-
             -build-${{ env.cache-name }}-
