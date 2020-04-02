@@ -36,6 +36,24 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: repo
+      - name: cache-sbt
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-sbt
+        with:
+          path: $CONTAINER_HOME/.sbt
+          key: build-${{ env.cache-name }}-${{ hashFiles('repo/build.sbt') }}-${{hashFiles('repo/project/*')}}
+          restore-keys: |
+            -build-${{ env.cache-name }}-
+      - name: cache-coursier
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-coursier
+        with:
+          path: $CONTAINER_HOME/.cache
+          key: build-${{ env.cache-name }}-${{ hashFiles('repo/build.sbt') }}-${{hashFiles('repo/project/*')}}
+          restore-keys: |
+            -build-${{ env.cache-name }}-
       - name: list
         id: list
         run: |
