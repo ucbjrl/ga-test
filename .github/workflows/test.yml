@@ -53,8 +53,8 @@ jobs:
       - name: list
         id: list
         run: |
-          echo ls -la . repo
-          ls -la . repo repo/.github/scripts
+          echo ls -la . repo ~/.sbt ~/.cache /home/github /home/github/.??*
+          ls -la . repo repo/.github/scripts ~/.sbt ~/.cache /home/github /home/github/.??*
       - name: env
         id: env
         run: |
@@ -69,6 +69,7 @@ jobs:
       - name: clone-deps
         id: clone-deps
         run: |
+          export SBT_OPTS="-d -v $SBT_OPTS"
           gawk -f repo/.github/scripts/generateGitClones.gawk deps > clones
           cat clones
           bash clones
@@ -80,4 +81,4 @@ jobs:
       - name: result
         id: result
         run: |
-          ls -la ~ ~/.sbt ~/.cache
+          ls -la ~ ~/.sbt ~/.cache /home/github /home/github/.??*
