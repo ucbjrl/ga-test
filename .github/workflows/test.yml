@@ -14,6 +14,7 @@ jobs:
       FIRRTL_REF: master
       FIRRTL_INTERPRETER_REF: master
       TREADLE_REF: master
+      CONTAINER_HOME: /home/github
 
     steps:
       - name: id
