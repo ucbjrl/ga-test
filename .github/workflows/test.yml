@@ -42,8 +42,9 @@ jobs:
           cache-name: cache-sbt
         with:
           path: ~/.sbt/
-          key: build-${{ env.cache-name }}-${{ hashFiles('repo/build.sbt') }}-${{hashFiles('repo/project/*')}}
+          key: build-${{ env.cache-name }}-v1-${{ hashFiles('repo/build.sbt') }}-${{hashFiles('repo/project/*')}}
           restore-keys: |
+            -build-${{ env.cache-name }}-v1-
             -build-${{ env.cache-name }}-
       - name: cache-coursier
         uses: actions/cache@v1
@@ -51,8 +52,9 @@ jobs:
           cache-name: cache-coursier
         with:
           path: ~/.cache/
-          key: build-${{ env.cache-name }}-${{ hashFiles('repo/build.sbt') }}-${{hashFiles('repo/project/*')}}
+          key: build-${{ env.cache-name }}-v1-${{ hashFiles('repo/build.sbt') }}-${{hashFiles('repo/project/*')}}
           restore-keys: |
+            -build-${{ env.cache-name }}-v1-
             -build-${{ env.cache-name }}-
       - name: list
         id: list
@@ -75,7 +77,7 @@ jobs:
         run: |
           gawk -f repo/.github/scripts/generateGitClones.gawk deps > clones
           cat clones
-#          bash clones
+          bash clones
       - name: version-deps
         id: version-deps
         run: |
