@@ -18,6 +18,7 @@ jobs:
 
     steps:
       - name: id
+        id: id
         run: |
           uid=$(id -u)
           echo ::set-env name=CONTAINER_HOME::$(if [ "$uid" = "0" ]; then echo "/root"; else echo "/home/github"; fi)
@@ -25,6 +26,13 @@ jobs:
           whoami
           git --version
           pwd
+      # Currently, sbt seems to either ignore (or doesn't see) $HOME inside the container,
+      #  and insists on using /home/<user> (i.e., /home/github).
+      # Set up symbolic links so /home/gitsub/.{sbt,cache} (inside the container) are links to
+      #  the equivalent directories in $HOME (i.e, /github/home)
+      - name: link-caches
+        id: link-caches
+        run: |
           echo "Link $CONTAINER_HOME caches to $HOME"
           echo mkdir -p $HOME/.cache $HOME/.ivy2 $HOME/.sbt
           mkdir -p $HOME/.cache $HOME/.ivy2 $HOME/.sbt
@@ -75,7 +83,6 @@ jobs:
       - name: clone-deps
         id: clone-deps
         run: |
-          export SBT_OPTS="-d -v $SBT_OPTS"
           gawk -f repo/.github/scripts/generateGitClones.gawk deps > clones
           cat clones
           bash clones
@@ -87,4 +94,4 @@ jobs:
       - name: result
         id: result
         run: |
-          ls -la ~ ~/.sbt ~/.cache /home/github /home/github/.??* $CONTAINER_HOME
+          ls -la ~ ~/.sbt ~/.cache $CONTAINER_HOME $CONTAINER_HOME/.??*
