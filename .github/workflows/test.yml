@@ -50,9 +50,8 @@ jobs:
           cache-name: cache-sbt
         with:
           path: ~/.sbt
-          key: build-${{ env.cache-name }}-v1-${{ hashFiles('repo/build.sbt') }}-${{hashFiles('repo/project/*')}}
+          key: build-${{ env.cache-name }}-v1
           restore-keys: |
-            -build-${{ env.cache-name }}-v1-
             -build-${{ env.cache-name }}-
       - name: cache-coursier
         uses: actions/cache@v1
@@ -60,9 +59,8 @@ jobs:
           cache-name: cache-coursier
         with:
           path: ~/.cache
-          key: build-${{ env.cache-name }}-v1-${{ hashFiles('repo/build.sbt') }}-${{ hashFiles('repo/project/*') }}
+          key: build-${{ env.cache-name }}-v1
           restore-keys: |
-            -build-${{ env.cache-name }}-v1-
             -build-${{ env.cache-name }}-
       - name: list
         id: list
