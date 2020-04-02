@@ -24,8 +24,13 @@ jobs:
           whoami
           git --version
           pwd
-          echo ls -la $HOME .
-          ls -la $HOME .
+          echo "Link $CONTAINER_HOME caches to $HOME"
+          echo mkdir -p $HOME/.cache $HOME/.ivy2 $HOME/.sbt
+          mkdir -p $HOME/.cache $HOME/.ivy2 $HOME/.sbt
+          echo ln -s $HOME/.cache $HOME/.ivy2 $HOME/.sbt $CONTAINER_HOME
+          ln -s $HOME/.cache $HOME/.ivy2 $HOME/.sbt $CONTAINER_HOME
+          echo ls -la $HOME . $CONTAINER_HOME
+          ls -la $HOME . $CONTAINER_HOME
       - name: checkout
         uses: actions/checkout@v2
         with:
