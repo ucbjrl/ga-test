@@ -35,7 +35,7 @@ jobs:
         env:
           cache-name: cache-sbt
         with:
-          path: ~/.sbt/
+          path: ~/.sbt
           key: build-${{ env.cache-name }}-v1-${{ hashFiles('repo/build.sbt') }}-${{hashFiles('repo/project/*')}}
           restore-keys: |
             -build-${{ env.cache-name }}-v1-
@@ -45,7 +45,7 @@ jobs:
         env:
           cache-name: cache-coursier
         with:
-          path: ~/.cache/
+          path: ~/.cache
           key: build-${{ env.cache-name }}-v1-${{ hashFiles('repo/build.sbt') }}-${{ hashFiles('repo/project/*') }}
           restore-keys: |
             -build-${{ env.cache-name }}-v1-
