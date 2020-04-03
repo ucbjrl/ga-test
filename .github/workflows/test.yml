@@ -92,8 +92,8 @@ jobs:
       - name: clone-deps
         id: clone-deps
         run: |
-          cat clones
-          bash clones
+          cat clones.sh
+          bash clones.sh
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
       - name: version-deps
         id: version-deps
