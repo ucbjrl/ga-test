@@ -52,7 +52,7 @@ jobs:
           path: ~/.sbt
           key: build-${{ env.cache-name }}-v1
           restore-keys: |
-            -build-${{ env.cache-name }}-
+            build-${{ env.cache-name }}-
       - name: cache-coursier
         uses: actions/cache@v1
         env:
@@ -61,7 +61,7 @@ jobs:
           path: ~/.cache
           key: build-${{ env.cache-name }}-v1
           restore-keys: |
-            -build-${{ env.cache-name }}-
+            build-${{ env.cache-name }}-
       - name: list
         id: list
         run: |
@@ -78,12 +78,23 @@ jobs:
           gawk -f repo/.github/scripts/ExtractBuildDependenciesFromPullRequest.gawk $GITHUB_EVENT_PATH > deps
           ls -l deps
           cat deps
+          gawk -f repo/.github/scripts/generateGitClones.gawk deps > clones.sh 3> shas.sh
+          cat shas.sh
+          bash shas.sh > shas
+      - name: cache-dependencies
+        id: cache-dependencies
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: ~/.ivy2/local
+          key: build-${{ env.cache-name }}-v1-${{ hashFiles('shas') }}
       - name: clone-deps
         id: clone-deps
         run: |
-          gawk -f repo/.github/scripts/generateGitClones.gawk deps > clones
           cat clones
           bash clones
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
       - name: version-deps
         id: version-deps
         run: |
