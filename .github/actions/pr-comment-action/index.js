@@ -1,24 +1,30 @@
 const core = require('@actions/core');
-const { context, GitHub } = require("@actions/github");
+const github = require("@actions/github");
+const context = github.context;
 
 async function run() {
-  if (
-      context.eventName === "issue_comment" &&
-      !context.payload.issue.pull_request
-  ) {
-      // not a pull-request comment, aborting
-      core.setOutput("comment", "error: not a pull-request comment");
-      return;
+  const name = github.context.eventName;
+
+  let body, keys;
+  switch(name) {
+    case 'push':
+      const payload = github.context.payload;
+      body = payload
+      keys = Object.keys(payload)
+      break;
+    case 'pull_request':
+      body = github.context.payload.pull_request.body;
+      keys = Object.keys(github.context.payload.pull_request)
+      break;
+    default:
+      body = '';
+      keys = '';
+      break;
   }
 
-  const { owner, repo } = context.repo;
-
-  const body =
-      context.eventName === "issue_comment"
-          ? context.payload.comment.body
-          : context.payload.pull_request.body;
-
-  core.setOutput("comment", body);
+  core.setOutput("comment", "" + body);
+  core.setOutput("name", "" + name);
+  core.setOutput("keys", JSON.stringify(keys));
 
 }
 
